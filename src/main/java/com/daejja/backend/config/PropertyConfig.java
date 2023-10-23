@@ -1,4 +1,4 @@
-package com.daejja.backend.global.config;
+package com.daejja.backend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
