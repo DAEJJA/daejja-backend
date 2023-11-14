@@ -8,10 +8,12 @@ import com.daejja.backend.exception.CustomException;
 import com.daejja.backend.exception.ErrorCode;
 import com.daejja.backend.mapper.UserMapper;
 import com.daejja.backend.repository.UserRepository;
+import com.daejja.backend.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.support.JstlUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +23,8 @@ public class AuthService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final TokenPairService tokenPairService;
 
     /**
      * 유저 회원가입
@@ -45,10 +49,15 @@ public class AuthService {
             throw new CustomException(ErrorCode.UNAUTHORIZED_PASSWORD);
         }
 
-        // TODO: 토큰 생성
+        // 토큰 생성
+        String accessToken = jwtTokenProvider.generateAccessToken(user);
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user);
+        tokenPairService.saveTokenPair(accessToken, refreshToken, user);
 
         AuthLoginResponse authLoginResponse = AuthLoginResponse.builder()
                 .userId(user.getId())
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
                 .build();
 
         return authLoginResponse;
