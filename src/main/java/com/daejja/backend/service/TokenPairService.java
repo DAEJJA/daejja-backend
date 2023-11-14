@@ -24,8 +24,6 @@ public class TokenPairService {
                         (findTokenPair) -> findTokenPair.updateToken(accessToken, refreshToken),
                         () -> tokenPairRepository.save(tokenPair)
                 );
-
-        tokenPairRepository.save(tokenPair);
     }
 
 }
