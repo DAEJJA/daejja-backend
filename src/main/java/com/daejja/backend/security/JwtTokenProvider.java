@@ -1,5 +1,6 @@
 package com.daejja.backend.security;
 
+import com.daejja.backend.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -46,9 +47,9 @@ public class JwtTokenProvider {
     }
 
     // accessToken 생성
-    public String generateAccessToken(String loginId) {
+    public String generateAccessToken(User user) {
 
-        Claims claims = Jwts.claims().setSubject(loginId);
+        Claims claims = Jwts.claims().setSubject(user.getLoginId());
         Date issuedAt = new Date();
         Date tokenExpiresIn = new Date(issuedAt.getTime() + accessTokenValidTime);
 
@@ -56,9 +57,9 @@ public class JwtTokenProvider {
     }
 
     // refreshToken 생성
-    public String generateRefreshToken(String loginId) {
+    public String generateRefreshToken(User user) {
 
-        Claims claims = Jwts.claims().setSubject(loginId);
+        Claims claims = Jwts.claims().setSubject(user.getLoginId());
         Date issuedAt = new Date();
         Date TokenExpiresIn = new Date(issuedAt.getTime() + refreshTokenValidTime);
 
