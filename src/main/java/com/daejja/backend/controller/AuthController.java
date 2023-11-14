@@ -1,5 +1,7 @@
 package com.daejja.backend.controller;
 
+import com.daejja.backend.dto.AuthLoginRequest;
+import com.daejja.backend.dto.AuthLoginResponse;
 import com.daejja.backend.dto.AuthSignupRequest;
 import com.daejja.backend.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,15 @@ public class AuthController {
     public ResponseEntity<Void> signUp(@RequestBody AuthSignupRequest authSignupRequest) {
         authService.signUp(authSignupRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    /**
+     * 유저 로그인
+     */
+    @GetMapping("/login")
+    public ResponseEntity<AuthLoginResponse> login(@RequestBody AuthLoginRequest authLoginRequest) {
+        AuthLoginResponse authLoginResponse = authService.login(authLoginRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(authLoginResponse);
     }
 
 }
