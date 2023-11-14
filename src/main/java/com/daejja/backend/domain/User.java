@@ -1,6 +1,7 @@
 package com.daejja.backend.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,5 +18,12 @@ public class User {
     private String loginId;
     private String password;
     private String nickName;
+
+    @Builder
+    public User(String loginId, String password, String nickName) {
+        this.loginId = loginId;
+        this.password = password;
+        this.nickName = nickName;
+    }
 
 }
