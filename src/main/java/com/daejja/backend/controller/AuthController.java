@@ -30,7 +30,7 @@ public class AuthController {
     /**
      * 유저 로그인
      */
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<AuthLoginResponse> login(@RequestBody AuthLoginRequest authLoginRequest) {
         AuthLoginResponse authLoginResponse = authService.login(authLoginRequest);
         return ResponseEntity.status(HttpStatus.OK).body(authLoginResponse);
