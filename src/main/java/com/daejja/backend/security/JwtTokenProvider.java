@@ -2,6 +2,7 @@ package com.daejja.backend.security;
 
 import com.daejja.backend.domain.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
@@ -30,12 +31,6 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    // accessToken 유효시간 30분
-    private long accessTokenValidTime = Duration.ofMinutes(30).toMillis();
-
-    // refreshToken 유효시간 2주
-    private long refreshTokenValidTime = Duration.ofDays(14).toMillis();
-
     private String buildToken(Claims claims, Date issuedAt, Date TokenExpiresIn, String key) {
 
         return Jwts.builder()
@@ -51,7 +46,7 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(user.getLoginId());
         Date issuedAt = new Date();
-        Date tokenExpiresIn = new Date(issuedAt.getTime() + accessTokenValidTime);
+        Date tokenExpiresIn = new Date(issuedAt.getTime() + JwtProperties.ACCESS_TOKEN_EXPIRATION_TIME);
 
         return buildToken(claims, issuedAt, tokenExpiresIn, secretKey);
     }
@@ -61,7 +56,7 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(user.getLoginId());
         Date issuedAt = new Date();
-        Date TokenExpiresIn = new Date(issuedAt.getTime() + refreshTokenValidTime);
+        Date TokenExpiresIn = new Date(issuedAt.getTime() + JwtProperties.REFRESH_TOKEN_EXPIRATION_TIME);
 
         return buildToken(claims, issuedAt, TokenExpiresIn, refreshSecretKey);
     }
