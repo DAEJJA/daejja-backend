@@ -1,9 +1,14 @@
 package com.daejja.backend.mapper;
 
+import com.daejja.backend.domain.Location;
 import com.daejja.backend.domain.Schedule;
 import com.daejja.backend.domain.User;
+import com.daejja.backend.dto.LocationResponse;
 import com.daejja.backend.dto.ScheduleCreateRequest;
 import com.daejja.backend.dto.ScheduleFindAllResponse;
+import com.daejja.backend.dto.ScheduleFindOneResponse;
+
+import java.util.List;
 
 public class ScheduleMapper {
 
@@ -22,5 +27,14 @@ public class ScheduleMapper {
                 .description(schedule.getDescription())
                 .build();
     }
+
+    public static ScheduleFindOneResponse toScheduleFindOneResponse(Schedule schedule, List<LocationResponse> results) {
+        return ScheduleFindOneResponse.builder()
+                .title(schedule.getTitle())
+                .description(schedule.getDescription())
+                .locations(results)
+                .build();
+    }
+
 
 }
