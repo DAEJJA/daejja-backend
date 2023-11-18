@@ -25,6 +25,9 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final LocationRepository locationRepository;
 
+    /**
+     * 일정 저장
+     */
     public void saveSchedule(ScheduleCreateRequest request, Long userId) {
 
         User user = userRepository.findById(userId)
