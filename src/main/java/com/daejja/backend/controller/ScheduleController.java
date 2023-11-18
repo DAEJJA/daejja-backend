@@ -2,6 +2,7 @@ package com.daejja.backend.controller;
 
 import com.daejja.backend.dto.ScheduleCreateRequest;
 import com.daejja.backend.dto.ScheduleFindAllResponse;
+import com.daejja.backend.dto.ScheduleFindOneResponse;
 import com.daejja.backend.security.auth.AuthDetails;
 import com.daejja.backend.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,17 @@ public class ScheduleController {
         Long userId = authDetails.getUser().getId();
 
         List<ScheduleFindAllResponse> response = scheduleService.findAllSchedule(userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    /**
+     * 일정 상세 조회
+     */
+    @GetMapping("/{scheduleId}")
+    public ResponseEntity<ScheduleFindOneResponse> findOneSchedule(@PathVariable Long scheduleId) {
+
+        ScheduleFindOneResponse response = scheduleService.findOneSchedule(scheduleId);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

@@ -1,15 +1,15 @@
 package com.daejja.backend.dto;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
-public class ScheduleCreateRequest {
+@Builder
+public class ScheduleFindOneResponse {
 
     private String title;
     private String description;
-    private List<LocationRequest> locations;
+    private List<LocationResponse> locations;
 }

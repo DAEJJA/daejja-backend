@@ -14,7 +14,10 @@ public enum ErrorCode {
     // USER 에러
     NOT_FOUND_USER(HttpStatus.NOT_FOUND, "해당 유저를 찾을 수 없습니다."),
     UNAUTHORIZED_ID(HttpStatus.UNAUTHORIZED, "아이디가 틀립니다."),
-    UNAUTHORIZED_PASSWORD(HttpStatus.UNAUTHORIZED, "비밀번호가 틀립니다.");
+    UNAUTHORIZED_PASSWORD(HttpStatus.UNAUTHORIZED, "비밀번호가 틀립니다."),
+
+    // SCHEDULE 에러
+    NOT_FOUND_SCHEDULE(HttpStatus.NOT_FOUND, "해당 일정을 찾을 수 없습니다.");
 
     private final HttpStatus status;
     private final String error;

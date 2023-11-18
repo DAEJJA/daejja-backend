@@ -3,9 +3,7 @@ package com.daejja.backend.service;
 import com.daejja.backend.domain.Location;
 import com.daejja.backend.domain.Schedule;
 import com.daejja.backend.domain.User;
-import com.daejja.backend.dto.LocationCreateRequest;
-import com.daejja.backend.dto.ScheduleCreateRequest;
-import com.daejja.backend.dto.ScheduleFindAllResponse;
+import com.daejja.backend.dto.*;
 import com.daejja.backend.exception.CustomException;
 import com.daejja.backend.exception.ErrorCode;
 import com.daejja.backend.mapper.LocationMapper;
@@ -40,8 +38,8 @@ public class ScheduleService {
 
         scheduleRepository.save(schedule);
 
-        for (LocationCreateRequest locationCreateRequest : request.getLocations()) {
-            Location location = LocationMapper.toEntity(schedule, locationCreateRequest);
+        for (LocationRequest locationDto : request.getLocations()) {
+            Location location = LocationMapper.toEntity(schedule, locationDto);
 
             locationRepository.save(location);
         }
@@ -60,5 +58,22 @@ public class ScheduleService {
         return results.stream()
                 .map(ScheduleMapper::toScheduleFindAllResponse)
                 .toList();
+    }
+
+    /**
+     * 일정 상세 조회
+     */
+    public ScheduleFindOneResponse findOneSchedule(Long scheduleId) {
+
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_SCHEDULE));
+
+        List<Location> locations = locationRepository.findBySchedule(schedule);
+
+        List<LocationResponse> results = locations.stream()
+                .map(LocationMapper::toLocationFindAllResponse)
+                .toList();
+
+        return ScheduleMapper.toScheduleFindOneResponse(schedule, results);
     }
 }
