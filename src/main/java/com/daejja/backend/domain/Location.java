@@ -15,6 +15,7 @@ public class Location {
     @Column(name = "location_id")
     private Long id;
 
+    private String day;
     private String name;
     private String address;
 
@@ -23,14 +24,16 @@ public class Location {
     private Schedule schedule;
 
     @Builder
-    public Location(String name, String address, Schedule schedule) {
+    public Location(String day, String name, String address, Schedule schedule) {
+        this.day = day;
         this.name = name;
         this.address = address;
         this.schedule = schedule;
     }
 
-    public static Location createLocation(String name, String address, Schedule schedule) {
+    public static Location createLocation(String day, String name, String address, Schedule schedule) {
         return Location.builder()
+                .day(day)
                 .name(name)
                 .address(address)
                 .schedule(schedule)

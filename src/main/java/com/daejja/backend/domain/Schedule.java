@@ -18,16 +18,22 @@ public class Schedule {
     private String title;
     private String description;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Builder
-    public Schedule(String title, String description) {
+    public Schedule(String title, String description, User user) {
         this.title = title;
         this.description = description;
+        this.user = user;
     }
 
-    public static Schedule createSchedule(String title, String description) {
+    public static Schedule createSchedule(String title, String description, User user) {
         return Schedule.builder()
                 .title(title)
                 .description(description)
+                .user(user)
                 .build();
     }
 
