@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class LocationCreateRequest {
+public class LocationRequest {
 
     private String day;
     private String name;

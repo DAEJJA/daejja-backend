@@ -11,5 +11,5 @@ public class ScheduleCreateRequest {
 
     private String title;
     private String description;
-    private List<LocationCreateRequest> locations;
+    private List<LocationRequest> locations;
 }

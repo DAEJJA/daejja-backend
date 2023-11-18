@@ -3,7 +3,7 @@ package com.daejja.backend.service;
 import com.daejja.backend.domain.Location;
 import com.daejja.backend.domain.Schedule;
 import com.daejja.backend.domain.User;
-import com.daejja.backend.dto.LocationCreateRequest;
+import com.daejja.backend.dto.LocationRequest;
 import com.daejja.backend.dto.ScheduleCreateRequest;
 import com.daejja.backend.dto.ScheduleFindAllResponse;
 import com.daejja.backend.exception.CustomException;
@@ -40,8 +40,8 @@ public class ScheduleService {
 
         scheduleRepository.save(schedule);
 
-        for (LocationCreateRequest locationCreateRequest : request.getLocations()) {
-            Location location = LocationMapper.toEntity(schedule, locationCreateRequest);
+        for (LocationRequest locationDto : request.getLocations()) {
+            Location location = LocationMapper.toEntity(schedule, locationDto);
 
             locationRepository.save(location);
         }
