@@ -2,7 +2,6 @@ package com.daejja.backend.security;
 
 import com.daejja.backend.domain.User;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.time.Duration;
 import java.util.Base64;
 import java.util.Date;
 
@@ -62,7 +60,7 @@ public class JwtTokenProvider {
     }
 
     // accessToken에서 loginId 추출
-    public String getLoginId(String token) {
+    public String getLoginIdFromAccessToken(String token) {
 
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
